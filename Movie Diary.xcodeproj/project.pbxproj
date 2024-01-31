@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		61CA59A52B6B061E00C80D44 /* TrendingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA59A42B6B061E00C80D44 /* TrendingCard.swift */; };
+		61CA59A82B6B0D8400C80D44 /* MovieDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA59A72B6B0D8400C80D44 /* MovieDiaryViewModel.swift */; };
 		61CC29DD2B35CEBE0086CDFE /* Movie_DiaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC29DC2B35CEBE0086CDFE /* Movie_DiaryApp.swift */; };
 		61CC29DF2B35CEBE0086CDFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC29DE2B35CEBE0086CDFE /* ContentView.swift */; };
 		61CC29E12B35CEC00086CDFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61CC29E02B35CEC00086CDFE /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 
 /* Begin PBXFileReference section */
 		61CA59A42B6B061E00C80D44 /* TrendingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCard.swift; sourceTree = "<group>"; };
+		61CA59A72B6B0D8400C80D44 /* MovieDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDiaryViewModel.swift; sourceTree = "<group>"; };
 		61CC29D92B35CEBE0086CDFE /* Movie Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61CC29DC2B35CEBE0086CDFE /* Movie_DiaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie_DiaryApp.swift; sourceTree = "<group>"; };
 		61CC29DE2B35CEBE0086CDFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -42,6 +44,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		61CA59A62B6B0D7300C80D44 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				61CA59A72B6B0D8400C80D44 /* MovieDiaryViewModel.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		61CC29D02B35CEBE0086CDFE = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +71,7 @@
 		61CC29DB2B35CEBE0086CDFE /* Movie Diary */ = {
 			isa = PBXGroup;
 			children = (
+				61CA59A62B6B0D7300C80D44 /* Views */,
 				61CA59A32B6B05B500C80D44 /* Components */,
 				61CC29DC2B35CEBE0086CDFE /* Movie_DiaryApp.swift */,
 				61CC29DE2B35CEBE0086CDFE /* ContentView.swift */,
@@ -149,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61CA59A52B6B061E00C80D44 /* TrendingCard.swift in Sources */,
+				61CA59A82B6B0D8400C80D44 /* MovieDiaryViewModel.swift in Sources */,
 				61CC29DF2B35CEBE0086CDFE /* ContentView.swift in Sources */,
 				61CC29DD2B35CEBE0086CDFE /* Movie_DiaryApp.swift in Sources */,
 			);
