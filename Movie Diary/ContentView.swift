@@ -14,24 +14,31 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0)
-                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            
+                .edgesIgnoringSafeArea(.all)
+
             VStack {
-                if viewModel.trending.isEmpty {
-                    Text("No results")
-                } else {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(viewModel.trending) {trendingMovie in
-                                TrendingCard(trendingMovies: trendingMovie)
+                Text("Trending Movies")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .foregroundColor(.white)
+
+                ScrollView {
+                    if viewModel.trending.isEmpty {
+                        Text("No results")
+                    } else {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(viewModel.trending) { trendingMovie in
+                                    TrendingCard(trendingMovies: trendingMovie)
+                                }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
                     }
                 }
-            }
-            .onAppear {
-                viewModel.loadTrending()
+                .onAppear {
+                    viewModel.loadTrending()
+                }
             }
         }
     }
@@ -66,65 +73,6 @@ class MovieDiaryViewModel: ObservableObject {
                 print(error.localizedDescription)
             }
         }
-    }
-}
-
-struct TrendingCard: View {
-    let trendingMovies: TrendingMovies
-    
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            AsyncImage(url: trendingMovies.backdropUrl) {
-                image in image.image?
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 350, height: 200)
-            }
-            
-            VStack {
-                HStack {
-                    Spacer()
-                    Text(trendingMovies.title)
-                        .fontWeight(.bold)
-                        .lineLimit(1)
-                        .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
-                        .foregroundStyle(.white)
-                        .frame(width: 300)
-                    Spacer()
-                }
-                
-                HStack {
-                    Spacer()
-                    Image(systemName: "hand.thumbsup.fill")
-                    Text(String(format: "%.2f", trendingMovies.vote_average))
-                    Spacer()
-                }.foregroundColor(.yellow)
-            }
-            .padding(12)
-            .background(Color(red: 0.341, green: 0.38, blue: 0.49))
-        }
-        .cornerRadius(10)
-    }
-}
-
-struct TrendingResults: Decodable {
-    let page: Int
-    let results: [TrendingMovies]
-    let total_pages: Int
-    let total_results: Int
-}
-
-struct TrendingMovies: Identifiable, Decodable {
-    let adult: Bool
-    let id: Int
-    let poster_path: String
-    let title: String
-    let vote_average: Float
-    let backdrop_path: String
-    
-    var backdropUrl: URL {
-        let base = URL(string: "https://image.tmdb.org/t/p/w500")
-        return base!.appending(path: backdrop_path)
     }
 }
 
