@@ -14,44 +14,82 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
+            ZStack {
+                Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0)
+                    .edgesIgnoringSafeArea(.all)
             
-            if (searchText.isEmpty) {
-                ZStack {
-                    Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0)
-                        .edgesIgnoringSafeArea(.all)
+                if (searchText.isEmpty) {
 
-                    VStack {
-                        Text("Trending")
-                            .fontWeight(.heavy)
-                            .font(.title)
-                            .foregroundColor(.white)
+                        VStack {
+                            Text("Trending")
+                                .fontWeight(.heavy)
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal)
 
-                        ScrollView {
-                            if viewModel.trending.isEmpty {
-                                Text("No results")
-                            } else {
-                                ScrollView(.horizontal) {
-                                    HStack {
-                                        ForEach(viewModel.trending) { trendingMovie in
-                                            TrendingCard(trendingMovies: trendingMovie)
+                            ScrollView {
+                                if viewModel.trending.isEmpty {
+                                    Text("No results")
+                                } else {
+                                    ScrollView(.horizontal) {
+                                        HStack {
+                                            ForEach(viewModel.trending) { trendingMovie in
+                                                MovieCard(trendingMovies: trendingMovie)
+                                            }
                                         }
+                                        .padding(.horizontal)
+                                        .clipped()
                                     }
-                                    .padding(.horizontal)
                                 }
                             }
                         }
+                        .onAppear {
+                            viewModel.loadTrending()
+                        }
+                } else {
+                    LazyVStack {
+                        ForEach(viewModel.searchResults) { item in
+                            HStack {
+                                AsyncImage(url: item.posterUrl) { image in
+                                        image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 80, height: 120)
+                                } placeholder: {
+                                    ProgressView()
+                                        .frame(width: 80, height: 120)
+                                }
+                                .padding(.horizontal)
+                                .clipped()
+                                .cornerRadius(10)
+                                
+                                VStack(alignment: .leading) {
+                                    Text(item.title)
+                                        .foregroundColor(.white)
+                                        .font(.headline)
+                                    
+                                    HStack {
+                                        Image(systemName: "hand.thumbsup.fill")
+                                        Text(String(format: "%.2f", item.vote_average))
+                                    }
+                                    .foregroundColor(.yellow)
+                                    .fontWeight(.heavy)
+                                }
+                                
+                                Spacer()
+                            }
+                        }
                     }
-                    .onAppear {
-                        viewModel.loadTrending()
-                    }
-                }
-            } else {
-                VStack {
-                    Spacer()
                 }
             }
         }
         .searchable(text: $searchText)
+        .onChange(of: searchText) {
+            if searchText.count > 2 {
+                viewModel.search(query: searchText)
+            }
+        }
         .navigationViewStyle(StackNavigationViewStyle())
         .edgesIgnoringSafeArea(.all)
     }

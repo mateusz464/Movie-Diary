@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct TrendingCard: View {
-    let trendingMovies: TrendingMovies
+struct MovieCard: View {
+    let trendingMovies: Movie
     
     var body: some View {
         VStack {
@@ -39,14 +39,14 @@ struct TrendingCard: View {
     }
 }
 
-struct TrendingResults: Decodable {
+struct MovieResults: Decodable {
     let page: Int
-    let results: [TrendingMovies]
+    let results: [Movie]
     let total_pages: Int
     let total_results: Int
 }
 
-struct TrendingMovies: Identifiable, Decodable {
+struct Movie: Identifiable, Decodable {
     let adult: Bool
     let id: Int
     let poster_path: String
