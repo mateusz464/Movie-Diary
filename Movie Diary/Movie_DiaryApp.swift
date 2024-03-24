@@ -8,11 +8,24 @@
 import SwiftUI
 
 @main
-struct Movie_DiaryApp: App {
+struct MovieDiary: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .preferredColorScheme(.dark)
+            TabView {
+                ContentView()
+                    .preferredColorScheme(.dark)
+                    .tabItem { Image("home") }
+                ContentView()
+                    .preferredColorScheme(.dark)
+                    .tabItem { Image("heart") }
+                ContentView()
+                    .preferredColorScheme(.dark)
+                    .tabItem { Image("eye") }
+                ContentView()
+                    .preferredColorScheme(.dark)
+                    .tabItem { Image("film") }
+            }
         }
     }
 }
+
