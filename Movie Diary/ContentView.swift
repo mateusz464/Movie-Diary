@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+	
 struct ContentView: View {
     
     @StateObject var viewModel = MovieDiaryViewModel()
