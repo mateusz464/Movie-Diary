@@ -48,39 +48,45 @@ struct ContentView: View {
                             viewModel.loadTrending()
                         }
                 } else {
-                    LazyVStack {
-                        ForEach(viewModel.searchResults) { item in
-                            HStack {
-                                AsyncImage(url: item.posterUrl) { image in
+                    ScrollView {
+                        LazyVStack {
+                            Spacer(minLength: 20)
+                            
+                            
+                            ForEach(viewModel.searchResults.prefix(10)) { item in
+                                HStack {
+                                    AsyncImage(url: item.posterUrl) { image in
                                         image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 80, height: 120)
-                                } placeholder: {
-                                    ProgressView()
-                                        .frame(width: 80, height: 120)
-                                }
-                                .padding(.horizontal)
-                                .clipped()
-                                .cornerRadius(10)
-                                
-                                VStack(alignment: .leading) {
-                                    Text(item.title)
-                                        .foregroundColor(.white)
-                                        .font(.headline)
-                                    
-                                    HStack {
-                                        Image(systemName: "hand.thumbsup.fill")
-                                        Text(String(format: "%.2f", item.vote_average))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 80, height: 120)
+                                    } placeholder: {
+                                        ProgressView()
+                                            .frame(width: 80, height: 120)
                                     }
-                                    .foregroundColor(.yellow)
-                                    .fontWeight(.heavy)
+                                    .padding(.horizontal)
+                                    .clipped()
+                                    .cornerRadius(10)
+                                    
+                                    VStack(alignment: .leading) {
+                                        Text(item.title)
+                                            .foregroundColor(.white)
+                                            .font(.headline)
+                                        
+                                        HStack {
+                                            Image(systemName: "hand.thumbsup.fill")
+                                            Text(String(format: "%.2f", item.vote_average))
+                                        }
+                                        .foregroundColor(.yellow)
+                                        .fontWeight(.heavy)
+                                    }
+                                    
+                                    Spacer()
                                 }
-                                
-                                Spacer()
                             }
                         }
                     }
+                    .padding(.top, 8)
                 }
             }
         }
