@@ -35,7 +35,10 @@ struct ContentView: View {
                                     ScrollView(.horizontal) {
                                         HStack {
                                             ForEach(viewModel.trending) { trendingMovie in
-                                                MovieCard(trendingMovies: trendingMovie)
+                                                NavigationLink(destination: MovieDetails(movieId: trendingMovie.id)) {
+                                                    MovieCard(trendingMovies: trendingMovie)
+                                                }
+                                                .buttonStyle(PlainButtonStyle())
                                             }
                                         }
                                         .padding(.horizontal)
@@ -52,38 +55,40 @@ struct ContentView: View {
                         LazyVStack {
                             Spacer(minLength: 20)
                             
-                            
                             ForEach(viewModel.searchResults.prefix(10)) { item in
-                                HStack {
-                                    AsyncImage(url: item.posterUrl) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 80, height: 120)
-                                    } placeholder: {
-                                        ProgressView()
-                                            .frame(width: 80, height: 120)
-                                    }
-                                    .padding(.horizontal)
-                                    .clipped()
-                                    .cornerRadius(10)
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text(item.title)
-                                            .foregroundColor(.white)
-                                            .font(.headline)
-                                        
-                                        HStack {
-                                            Image(systemName: "hand.thumbsup.fill")
-                                            Text(String(format: "%.2f", item.vote_average))
+                                NavigationLink(destination: MovieDetails(movieId: item.id)) {
+                                    HStack {
+                                        AsyncImage(url: item.posterUrl) { image in
+                                            image
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 80, height: 120)
+                                        } placeholder: {
+                                            ProgressView()
+                                                .frame(width: 80, height: 120)
                                         }
-                                        .foregroundColor(.yellow)
-                                        .fontWeight(.heavy)
+                                        .padding(.horizontal)
+                                        .clipped()
+                                        .cornerRadius(10)
+                                        
+                                        VStack(alignment: .leading) {
+                                            Text(item.title)
+                                                .foregroundColor(.white)
+                                                .font(.headline)
+                                            
+                                            HStack {
+                                                Image(systemName: "hand.thumbsup.fill")
+                                                Text(String(format: "%.2f", item.vote_average))
+                                            }
+                                            .foregroundColor(.yellow)
+                                            .fontWeight(.heavy)
+                                        }
+                                        
+                                        Spacer()
                                     }
-                                    
-                                    Spacer()
                                 }
                             }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                     .padding(.top, 8)
