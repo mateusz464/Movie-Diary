@@ -11,6 +11,7 @@ struct MovieDetails: View {
     let movieId: Int
     @State private var movieInfo: MovieInformation?
     @State private var movieCredits: MovieCredits?
+    @State private var showingCastOrCrew: String = "Cast"
     
     var body: some View {
         ZStack {
@@ -40,6 +41,7 @@ struct MovieDetails: View {
                         .foregroundColor(.white)
                         .padding(.horizontal)
                 }
+                .padding(.top, -20)
                 
                 HStack {
                     Text(movieCredits?.directorName ?? "Director")
@@ -76,6 +78,30 @@ struct MovieDetails: View {
                 
                 Text(movieInfo?.overview ?? "N/A")
                     .padding(.horizontal)
+                
+                Picker("Select", selection: $showingCastOrCrew) {
+                    Text("Cast").tag("Cast")
+                    Text("Crew").tag("Crew")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+                
+                ScrollView {
+                    if showingCastOrCrew == "Cast" {
+                        ForEach(movieCredits?.cast ?? [], id: \.id) { castMember in
+                            Text("\(castMember.name) as \(castMember.character)")
+                                .foregroundColor(.white)
+                                .padding([.top, .bottom], 2)
+                        }
+                    } else {
+                        ForEach(movieCredits?.crew ?? [], id: \.id) { crewMember in
+                            Text("\(crewMember.name) - \(crewMember.job)")
+                                .foregroundColor(.white)
+                                .padding([.top, .bottom], 2)
+                        }
+                    }
+                }
+                .padding(.horizontal)
                 
                 Spacer()
 
