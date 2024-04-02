@@ -12,6 +12,7 @@ struct MovieDetails: View {
     @State private var movieInfo: MovieInformation?
     @State private var movieCredits: MovieCredits?
     @State private var showingCastOrCrew: String = "Cast"
+    @State private var isPopupVisible: Bool = false
     
     var body: some View {
         ZStack {
@@ -19,13 +20,29 @@ struct MovieDetails: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 0) {
-                AsyncImage(url: movieInfo?.backdrop_url) { image in
-                    image.image?
-                        .resizable()
-                        .scaledToFill()
-                        .ignoresSafeArea()
-                        .frame(height: 100)
+                ZStack(alignment: .bottomTrailing) {
+                    AsyncImage(url: movieInfo?.backdrop_url) { image in
+                        image.image?
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                            .frame(height: 100)
+                    }
+                    
+                    Button(action: {
+                        isPopupVisible = true
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .background(Color.black.opacity(0.5))
+                            .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    }
+                    .padding(.bottom, 35)
+                    .padding(.trailing)
                 }
+                
                 
                 HStack {
                     Text(movieInfo?.title ?? "Title")
@@ -111,6 +128,9 @@ struct MovieDetails: View {
         .onAppear {
             fetchMovieDetails()
             fetchMovieCredits()
+        }
+        .sheet(isPresented: $isPopupVisible) {
+            PopupSheetView()
         }
     }
     
@@ -203,3 +223,53 @@ struct Crew: Decodable {
     let name: String
     let job: String
 }
+
+struct PopupSheetView: View {
+    var body: some View {
+        ZStack {
+            Color.clear.edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 20) {
+                Button(action: { print("Eye Tapped") }) {
+                    HStack {
+                        Image("eye")
+                        Text("Watched")
+                    }
+                }
+                .frame(width: 200, height: 100)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                
+                Button(action: { print("Heart Tapped") }) {
+                    HStack {
+                        Image("heart")
+                        Text("Favourite")
+                    }
+                }
+                .frame(width: 200, height: 100)
+                .background(Color.red)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                
+                Button(action: { print("Film Tapped") }) {
+                    HStack {
+                        Image("film")
+                        Text("Want to Watch")
+                    }
+                }
+                .frame(width: 200, height: 100)
+                .background(Color.gray)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+            }
+
+            .padding()
+            .background(Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0))
+            .cornerRadius(20)
+            .frame(width: 450)
+            .shadow(radius: 10)
+        }
+    }
+}
+

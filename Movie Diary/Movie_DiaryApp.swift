@@ -28,4 +28,3 @@ struct MovieDiary: App {
         }
     }
 }
-
