@@ -19,20 +19,6 @@ struct MovieCard: View {
                     .frame(width: 120, height: 200)
             }
             .cornerRadius(10)
-
-//            Text(trendingMovies.title)
-//                .fontWeight(.bold)
-//                .lineLimit(1)
-//                .truncationMode(.tail)
-//                .foregroundStyle(.white)
-//                .frame(width: 100)
-//
-//            HStack {
-//                Image(systemName: "hand.thumbsup.fill")
-//                Text(String(format: "%.2f", trendingMovies.vote_average))
-//            }
-//            .foregroundColor(.yellow)
-//            .padding(.vertical, 5)
         }
         .background(Color(red: 0.341, green: 0.38, blue: 0.49))
         .cornerRadius(10)
@@ -58,4 +44,47 @@ struct Movie: Identifiable, Decodable {
         let base = URL(string: "https://image.tmdb.org/t/p/w500")
         return base!.appending(path: poster_path)
     }
+}
+
+struct MovieInformation: Decodable {
+    let backdrop_path: String
+    let title: String
+    let overview: String
+    let release_date: String
+    let runtime: Int
+    let tagline: String
+    let vote_average: Float
+    let poster_path: String
+    
+    var backdrop_url: URL {
+        let base = URL(string: "https://image.tmdb.org/t/p/w500")
+        return base!.appending(path: backdrop_path)
+    }
+    
+    var poster_url: URL {
+        let base = URL(string: "https://image.tmdb.org/t/p/w500")
+        return base!.appending(path: poster_path)
+    }
+}
+
+struct MovieCredits: Decodable {
+    let id: Int
+    let cast: [Cast]
+    let crew: [Crew]
+    
+    var directorName: String? {
+        return crew.first { $0.job == "Director" }?.name
+    }
+}
+
+struct Cast: Decodable {
+    let id: Int
+    let name: String
+    let character: String
+}
+
+struct Crew: Decodable {
+    let id: Int
+    let name: String
+    let job: String
 }

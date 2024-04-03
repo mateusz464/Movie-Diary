@@ -216,27 +216,22 @@ struct MovieDetails: View {
     private func handleWatched() {
         if isWatched {
             removeFilm(id: movieId)
-            print("Removing film")
         } else {
             addOrUpdateFilm(watched: true)
-            print("Watched")
         }
     }
     
     private func handleFavourite() {
         if isWatched {
             addOrUpdateFilm(favourite: !isFavourite)
-            print("Favourited/Removed")
         }
     }
     
     private func handleWantToWatch() {
         if isWantToWatch {
             removeFilm(id: movieId)
-            print("Removing film")
         } else {
             addOrUpdateFilm(watched: false)
-            print("Want to watch")
         }
     }
     
@@ -311,49 +306,6 @@ struct MovieDetails: View {
     }
 }
 
-struct MovieInformation: Decodable {
-    let backdrop_path: String
-    let title: String
-    let overview: String
-    let release_date: String
-    let runtime: Int
-    let tagline: String
-    let vote_average: Float
-    let poster_path: String
-    
-    var backdrop_url: URL {
-        let base = URL(string: "https://image.tmdb.org/t/p/w500")
-        return base!.appending(path: backdrop_path)
-    }
-    
-    var poster_url: URL {
-        let base = URL(string: "https://image.tmdb.org/t/p/w500")
-        return base!.appending(path: poster_path)
-    }
-}
-
-struct MovieCredits: Decodable {
-    let id: Int
-    let cast: [Cast]
-    let crew: [Crew]
-    
-    var directorName: String? {
-        return crew.first { $0.job == "Director" }?.name
-    }
-}
-
-struct Cast: Decodable {
-    let id: Int
-    let name: String
-    let character: String
-}
-
-struct Crew: Decodable {
-    let id: Int
-    let name: String
-    let job: String
-}
-
 struct PopupSheetView: View {
     @Binding var isWatched: Bool
     @Binding var isFavourite: Bool
@@ -393,6 +345,7 @@ struct PopupSheetView: View {
                 .foregroundColor(.white)
                 .clipShape(Capsule())
                 .disabled(!isWatched)
+                .opacity(isWatched ? 1 : 0.5)
                 
                 Button(action: { handleWantToWatch() }) {
                     HStack {
@@ -405,6 +358,7 @@ struct PopupSheetView: View {
                 .foregroundColor(.white)
                 .clipShape(Capsule())
                 .disabled(isWatched)
+                .opacity(!isWatched ? 1 : 0.5)
             }
 
             .padding()

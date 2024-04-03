@@ -72,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				61CA59A42B6B061E00C80D44 /* MovieCard.swift */,
-				61D8F7FD2BBB13DB008582B2 /* MovieDetails.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -80,6 +79,7 @@
 		61CA59A62B6B0D7300C80D44 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				61D8F7FD2BBB13DB008582B2 /* MovieDetails.swift */,
 				61CA59A72B6B0D8400C80D44 /* MovieDiaryViewModel.swift */,
 			);
 			path = Views;
