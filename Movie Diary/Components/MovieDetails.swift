@@ -17,6 +17,7 @@ struct MovieDetails: View {
     @State private var showingCastOrCrew: String = "Cast"
     @State private var isPopupVisible: Bool = false
     @State private var isWatched: Bool = false
+    @State private var isFavourite: Bool = false
     
     var body: some View {
         ZStack {
@@ -132,10 +133,10 @@ struct MovieDetails: View {
         .onAppear {
             fetchMovieDetails()
             fetchMovieCredits()
-            updateWatchedStatus()
+            updateMovieStatus()
         }
         .sheet(isPresented: $isPopupVisible) {
-            PopupSheetView(isWatched: $isWatched, handleWatched: handleWatched)
+            PopupSheetView(isWatched: $isWatched, isFavourite: $isFavourite, handleWatched: handleWatched, toggleFavourite: handleFavourite)
         }
     }
     
@@ -191,34 +192,38 @@ struct MovieDetails: View {
         }
     }
     
-    private func updateWatchedStatus() {
-        isWatched = movieExists(id: movieId)
-    }
-    
-    private func movieExists(id: Int) -> Bool {
+    private func updateMovieStatus() {
         let request: NSFetchRequest<Watched> = Watched.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", id)
+        request.predicate = NSPredicate(format: "id == %d", movieId)
         
         do {
-            let count = try viewContext.count(for: request)
-            return count > 0
+            let result = try viewContext.fetch(request)
+            if let movie = result.first {
+                isWatched = true
+                isFavourite = movie.is_favourite
+            } else {
+                isWatched = false
+                isFavourite = false
+            }
         } catch {
-            print("Error checking for existing movie: \(error.localizedDescription)")
-            return false
+            print("Error fetching movie status: \(error.localizedDescription)")
         }
     }
     
     private func handleWatched() {
         if isWatched {
             removeWatchedMovie(id: movieId)
-            print("Removed movie")
+            isFavourite = false
         } else {
             addWatched()
-            print("Added movie")
         }
         
         isWatched.toggle()
-        print(isWatched)
+    }
+    
+    private func handleFavourite() {
+        toggleFavouriteStatus()
+        isFavourite.toggle()
     }
     
     private func addWatched() {
@@ -232,7 +237,6 @@ struct MovieDetails: View {
         
         do {
             try viewContext.save()
-            print("Movie Saved")
         } catch {
             print("Error saving movie: \(error.localizedDescription)")
         }
@@ -250,6 +254,21 @@ struct MovieDetails: View {
             try viewContext.save()
         } catch {
             print("Error removing movie: \(error.localizedDescription)")
+        }
+    }
+    
+    private func toggleFavouriteStatus() {
+        let request: NSFetchRequest<Watched> = Watched.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", movieId)
+        
+        do {
+            let movies = try viewContext.fetch(request)
+            if let movie = movies.first {
+                movie.is_favourite.toggle()
+                try viewContext.save()
+            }
+        } catch {
+            print("Error toggling favourite status: \(error.localizedDescription)")
         }
     }
 }
@@ -299,7 +318,9 @@ struct Crew: Decodable {
 
 struct PopupSheetView: View {
     @Binding var isWatched: Bool
+    @Binding var isFavourite: Bool
     var handleWatched: () -> Void
+    var toggleFavourite: () -> Void
     
     var body: some View {
         ZStack {
@@ -320,7 +341,7 @@ struct PopupSheetView: View {
                 .clipShape(Capsule())
                 
                 Button(action: {
-                    print("text")
+                    toggleFavourite()
                 }) {
                     HStack {
                         Image("heart")
@@ -328,7 +349,7 @@ struct PopupSheetView: View {
                     }
                 }
                 .frame(width: 200, height: 100)
-                .background(Color.gray)
+                .background(isFavourite ? Color.red : Color.gray)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
                 
