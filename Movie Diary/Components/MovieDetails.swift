@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MovieDetails: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     let movieId: Int
     @State private var movieInfo: MovieInformation?
     @State private var movieCredits: MovieCredits?
     @State private var showingCastOrCrew: String = "Cast"
     @State private var isPopupVisible: Bool = false
+    @State private var isWatched: Bool = false
     
     var body: some View {
         ZStack {
@@ -128,9 +132,10 @@ struct MovieDetails: View {
         .onAppear {
             fetchMovieDetails()
             fetchMovieCredits()
+            updateWatchedStatus()
         }
         .sheet(isPresented: $isPopupVisible) {
-            PopupSheetView()
+            PopupSheetView(isWatched: $isWatched, handleWatched: handleWatched)
         }
     }
     
@@ -185,6 +190,68 @@ struct MovieDetails: View {
             }
         }
     }
+    
+    private func updateWatchedStatus() {
+        isWatched = movieExists(id: movieId)
+    }
+    
+    private func movieExists(id: Int) -> Bool {
+        let request: NSFetchRequest<Watched> = Watched.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", id)
+        
+        do {
+            let count = try viewContext.count(for: request)
+            return count > 0
+        } catch {
+            print("Error checking for existing movie: \(error.localizedDescription)")
+            return false
+        }
+    }
+    
+    private func handleWatched() {
+        if isWatched {
+            removeWatchedMovie(id: movieId)
+            print("Removed movie")
+        } else {
+            addWatched()
+            print("Added movie")
+        }
+        
+        isWatched.toggle()
+        print(isWatched)
+    }
+    
+    private func addWatched() {
+        let newWatchedMovie = Watched(context: viewContext)
+        newWatchedMovie.id = Int32(movieId)
+        newWatchedMovie.title = movieInfo?.title
+        newWatchedMovie.poster_url = movieInfo?.poster_url
+        newWatchedMovie.release_date = movieInfo?.release_date
+        newWatchedMovie.vote_average = movieInfo?.vote_average ?? 0
+        newWatchedMovie.is_favourite = false
+        
+        do {
+            try viewContext.save()
+            print("Movie Saved")
+        } catch {
+            print("Error saving movie: \(error.localizedDescription)")
+        }
+    }
+    
+    private func removeWatchedMovie(id: Int) {
+        let request: NSFetchRequest<Watched> = Watched.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", id)
+        
+        do {
+            let movies = try viewContext.fetch(request)
+            for movie in movies {
+                viewContext.delete(movie)
+            }
+            try viewContext.save()
+        } catch {
+            print("Error removing movie: \(error.localizedDescription)")
+        }
+    }
 }
 
 struct MovieInformation: Decodable {
@@ -195,10 +262,16 @@ struct MovieInformation: Decodable {
     let runtime: Int
     let tagline: String
     let vote_average: Float
+    let poster_path: String
     
     var backdrop_url: URL {
         let base = URL(string: "https://image.tmdb.org/t/p/w500")
         return base!.appending(path: backdrop_path)
+    }
+    
+    var poster_url: URL {
+        let base = URL(string: "https://image.tmdb.org/t/p/w500")
+        return base!.appending(path: poster_path)
     }
 }
 
@@ -225,30 +298,37 @@ struct Crew: Decodable {
 }
 
 struct PopupSheetView: View {
+    @Binding var isWatched: Bool
+    var handleWatched: () -> Void
+    
     var body: some View {
         ZStack {
             Color.clear.edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 20) {
-                Button(action: { print("Eye Tapped") }) {
+                Button(action: {
+                    handleWatched()
+                }) {
                     HStack {
                         Image("eye")
                         Text("Watched")
                     }
                 }
                 .frame(width: 200, height: 100)
-                .background(Color.blue)
+                .background(isWatched ? Color.blue : Color.gray)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
                 
-                Button(action: { print("Heart Tapped") }) {
+                Button(action: {
+                    print("text")
+                }) {
                     HStack {
                         Image("heart")
                         Text("Favourite")
                     }
                 }
                 .frame(width: 200, height: 100)
-                .background(Color.red)
+                .background(Color.gray)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
                 
@@ -272,4 +352,3 @@ struct PopupSheetView: View {
         }
     }
 }
-

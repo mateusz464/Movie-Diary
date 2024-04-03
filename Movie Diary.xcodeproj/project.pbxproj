@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6181A52E2B8D2D2E005710FB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6181A52D2B8D2D2E005710FB /* Config.swift */; };
 		6187D9212BB08AF80069CC8A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6187D9202BB08AF70069CC8A /* ContentView.swift */; };
+		61C219102BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61C2190E2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld */; };
+		61C219242BBD85CF0059B1F2 /* WatchedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C219232BBD85CF0059B1F2 /* WatchedProvider.swift */; };
 		61CA59A52B6B061E00C80D44 /* MovieCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA59A42B6B061E00C80D44 /* MovieCard.swift */; };
 		61CA59A82B6B0D8400C80D44 /* MovieDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA59A72B6B0D8400C80D44 /* MovieDiaryViewModel.swift */; };
 		61CC29DD2B35CEBE0086CDFE /* Movie_DiaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC29DC2B35CEBE0086CDFE /* Movie_DiaryApp.swift */; };
@@ -20,6 +22,8 @@
 /* Begin PBXFileReference section */
 		6181A52D2B8D2D2E005710FB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		6187D9202BB08AF70069CC8A /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		61C2190F2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieDiaryData.xcdatamodel; sourceTree = "<group>"; };
+		61C219232BBD85CF0059B1F2 /* WatchedProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchedProvider.swift; path = ../../../../../.Trash/WatchedProvider.swift; sourceTree = "<group>"; };
 		61CA59A42B6B061E00C80D44 /* MovieCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCard.swift; sourceTree = "<group>"; };
 		61CA59A72B6B0D8400C80D44 /* MovieDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDiaryViewModel.swift; sourceTree = "<group>"; };
 		61CC29D92B35CEBE0086CDFE /* Movie Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,6 +50,22 @@
 				6181A52D2B8D2D2E005710FB /* Config.swift */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		61C2190D2BBD7A2F0059B1F2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				61C2190E2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		61C219222BBD85C60059B1F2 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				61C219232BBD85CF0059B1F2 /* WatchedProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		61CA59A32B6B05B500C80D44 /* Components */ = {
@@ -84,6 +104,8 @@
 		61CC29DB2B35CEBE0086CDFE /* Movie Diary */ = {
 			isa = PBXGroup;
 			children = (
+				61C219222BBD85C60059B1F2 /* Provider */,
+				61C2190D2BBD7A2F0059B1F2 /* Data */,
 				6181A52C2B8D2D23005710FB /* Config */,
 				61CA59A62B6B0D7300C80D44 /* Views */,
 				61CA59A32B6B05B500C80D44 /* Components */,
@@ -176,8 +198,10 @@
 				61CA59A52B6B061E00C80D44 /* MovieCard.swift in Sources */,
 				61CA59A82B6B0D8400C80D44 /* MovieDiaryViewModel.swift in Sources */,
 				6187D9212BB08AF80069CC8A /* ContentView.swift in Sources */,
+				61C219242BBD85CF0059B1F2 /* WatchedProvider.swift in Sources */,
 				6181A52E2B8D2D2E005710FB /* Config.swift in Sources */,
 				61CC29DD2B35CEBE0086CDFE /* Movie_DiaryApp.swift in Sources */,
+				61C219102BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld in Sources */,
 				61D8F7FE2BBB13DB008582B2 /* MovieDetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +406,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		61C2190E2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				61C2190F2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodel */,
+			);
+			currentVersion = 61C2190F2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodel */;
+			name = MovieDiaryData.xcdatamodeld;
+			path = "/Users/mateusz/Documents/Git/Movie Diary/Movie Diary/Data/MovieDiaryData.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 61CC29D12B35CEBE0086CDFE /* Project object */;
 }

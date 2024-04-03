@@ -15,6 +15,7 @@ struct MovieDiary: App {
                 ContentView()
                     .preferredColorScheme(.dark)
                     .tabItem { Image("home") }
+                    .environment(\.managedObjectContext, WatchedProvider.shared.viewContext)
                 ContentView()
                     .preferredColorScheme(.dark)
                     .tabItem { Image("heart") }
