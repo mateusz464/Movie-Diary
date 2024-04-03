@@ -1,28 +1,28 @@
 //
-//  FavouritesView.swift
+//  WantToWatchView.swift
 //  Movie Diary
 //
-//  Created by Mateusz Golebiowski on 03/04/2024.
+//  Created by Mateusz Golebiowski on 04/04/2024.
 //
 
 import SwiftUI
 
-struct FavouritesView: View {
+struct WantToWatchView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var selectedSort: SortOption = .highestRating
 
     @FetchRequest(
         entity: Film.entity(),
         sortDescriptors: [],
-        predicate: NSPredicate(format: "is_favourite == %@", NSNumber(value: true))
-    ) var favouriteFilms: FetchedResults<Film>
+        predicate: NSPredicate(format: "watched == %@", NSNumber(value: false))
+    ) var wantToWatchFilms: FetchedResults<Film>
     
     var body: some View {
         VStack {
             HStack {
-                Text("Favourite Movies")
+                Text("Want to Watch")
                     .font(.title)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .fontWeight(.bold)
                     .padding([.horizontal, .top])
                 
                 Spacer()
@@ -58,13 +58,14 @@ struct FavouritesView: View {
     private func sortedFilms() -> [Film] {
         switch selectedSort {
             case .highestRating:
-                return favouriteFilms.sorted { $0.vote_average > $1.vote_average }
+                return wantToWatchFilms.sorted { $0.vote_average > $1.vote_average }
             case .lowestRating:
-                return favouriteFilms.sorted { $0.vote_average < $1.vote_average }
+                return wantToWatchFilms.sorted { $0.vote_average < $1.vote_average }
             case .newest:
-                return favouriteFilms.sorted { $0.release_date ?? "" > $1.release_date ?? "" }
+                return wantToWatchFilms.sorted { $0.release_date ?? "" > $1.release_date ?? "" }
             case .oldest:
-                return favouriteFilms.sorted { $0.release_date ?? "" < $1.release_date ?? "" }
-            }
+                return wantToWatchFilms.sorted { $0.release_date ?? "" < $1.release_date ?? "" }
+        }
     }
 }
+

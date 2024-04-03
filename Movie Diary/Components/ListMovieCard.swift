@@ -37,8 +37,10 @@ struct ListMovieCard: View {
                         
                         Spacer()
                         
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(.red)
+                        if movie.is_favourite {
+                            Image(systemName: "heart.fill")
+                                .foregroundColor(.red)
+                        }
                     }
                     
                     Spacer()
