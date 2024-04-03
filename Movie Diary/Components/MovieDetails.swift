@@ -18,6 +18,7 @@ struct MovieDetails: View {
     @State private var isPopupVisible: Bool = false
     @State private var isWatched: Bool = false
     @State private var isFavourite: Bool = false
+    @State private var isWantToWatch: Bool = false
     
     var body: some View {
         ZStack {
@@ -136,7 +137,7 @@ struct MovieDetails: View {
             updateMovieStatus()
         }
         .sheet(isPresented: $isPopupVisible) {
-            PopupSheetView(isWatched: $isWatched, isFavourite: $isFavourite, handleWatched: handleWatched, toggleFavourite: handleFavourite)
+            PopupSheetView(isWatched: $isWatched, isFavourite: $isFavourite, isWantToWatch: $isWantToWatch, handleWatched: handleWatched, toggleFavourite: handleFavourite, handleWantToWatch: handleWantToWatch)
         }
     }
     
@@ -193,17 +194,19 @@ struct MovieDetails: View {
     }
     
     private func updateMovieStatus() {
-        let request: NSFetchRequest<Watched> = Watched.fetchRequest()
+        let request: NSFetchRequest<Film> = Film.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", movieId)
         
         do {
             let result = try viewContext.fetch(request)
             if let movie = result.first {
-                isWatched = true
+                isWatched = movie.watched
                 isFavourite = movie.is_favourite
+                isWantToWatch = !movie.watched && (result.count > 0)
             } else {
                 isWatched = false
                 isFavourite = false
+                isWantToWatch = false
             }
         } catch {
             print("Error fetching movie status: \(error.localizedDescription)")
@@ -212,53 +215,88 @@ struct MovieDetails: View {
     
     private func handleWatched() {
         if isWatched {
-            removeWatchedMovie(id: movieId)
-            isFavourite = false
+            removeFilm(id: movieId)
+            print("Removing film")
         } else {
-            addWatched()
+            addOrUpdateFilm(watched: true)
+            print("Watched")
         }
-        
-        isWatched.toggle()
     }
     
     private func handleFavourite() {
-        toggleFavouriteStatus()
-        isFavourite.toggle()
-    }
-    
-    private func addWatched() {
-        let newWatchedMovie = Watched(context: viewContext)
-        newWatchedMovie.id = Int32(movieId)
-        newWatchedMovie.title = movieInfo?.title
-        newWatchedMovie.poster_url = movieInfo?.poster_url
-        newWatchedMovie.release_date = movieInfo?.release_date
-        newWatchedMovie.vote_average = movieInfo?.vote_average ?? 0
-        newWatchedMovie.is_favourite = false
-        
-        do {
-            try viewContext.save()
-        } catch {
-            print("Error saving movie: \(error.localizedDescription)")
+        if isWatched {
+            addOrUpdateFilm(favourite: !isFavourite)
+            print("Favourited/Removed")
         }
     }
     
-    private func removeWatchedMovie(id: Int) {
-        let request: NSFetchRequest<Watched> = Watched.fetchRequest()
+    private func handleWantToWatch() {
+        if isWantToWatch {
+            removeFilm(id: movieId)
+            print("Removing film")
+        } else {
+            addOrUpdateFilm(watched: false)
+            print("Want to watch")
+        }
+    }
+    
+    private func addOrUpdateFilm(watched: Bool? = nil, favourite: Bool? = nil) {
+        
+        let request: NSFetchRequest<Film> = Film.fetchRequest()
+            request.predicate = NSPredicate(format: "id == %d", movieId)
+            
+            do {
+                let results = try viewContext.fetch(request)
+                let film: Film
+                
+                if let existingFilm = results.first {
+                    film = existingFilm
+                } else {
+                    film = Film(context: viewContext)
+                    film.id = Int32(movieId)
+                    film.title = movieInfo?.title ?? ""
+                    film.poster_url = movieInfo?.poster_url
+                    film.release_date = movieInfo?.release_date
+                    film.vote_average = movieInfo?.vote_average ?? 0
+                }
+                
+                if let watched = watched {
+                    film.watched = watched
+                    isWatched = watched
+                    isWantToWatch = !watched
+                }
+                
+                if let favourite = favourite {
+                    film.is_favourite = favourite
+                    isFavourite = favourite
+                }
+                
+                try viewContext.save()
+            } catch {
+                print("Error saving or updating film: \(error.localizedDescription)")
+            }
+    }
+    
+    private func removeFilm(id: Int) {
+        let request: NSFetchRequest<Film> = Film.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", id)
         
         do {
-            let movies = try viewContext.fetch(request)
-            for movie in movies {
-                viewContext.delete(movie)
+            let films = try viewContext.fetch(request)
+            for film in films {
+                viewContext.delete(film)
             }
             try viewContext.save()
+            isWatched = false
+            isFavourite = false
+            isWantToWatch = false
         } catch {
-            print("Error removing movie: \(error.localizedDescription)")
+            print("Error removing film: \(error.localizedDescription)")
         }
     }
     
     private func toggleFavouriteStatus() {
-        let request: NSFetchRequest<Watched> = Watched.fetchRequest()
+        let request: NSFetchRequest<Film> = Film.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", movieId)
         
         do {
@@ -319,8 +357,10 @@ struct Crew: Decodable {
 struct PopupSheetView: View {
     @Binding var isWatched: Bool
     @Binding var isFavourite: Bool
+    @Binding var isWantToWatch: Bool
     var handleWatched: () -> Void
     var toggleFavourite: () -> Void
+    var handleWantToWatch: () -> Void
     
     var body: some View {
         ZStack {
@@ -352,17 +392,19 @@ struct PopupSheetView: View {
                 .background(isFavourite ? Color.red : Color.gray)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
+                .disabled(!isWatched)
                 
-                Button(action: { print("Film Tapped") }) {
+                Button(action: { handleWantToWatch() }) {
                     HStack {
                         Image("film")
                         Text("Want to Watch")
                     }
                 }
                 .frame(width: 200, height: 100)
-                .background(Color.gray)
+                .background(isWantToWatch ? Color.blue : Color.gray)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
+                .disabled(isWatched)
             }
 
             .padding()
