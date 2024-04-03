@@ -16,9 +16,10 @@ struct MovieDiary: App {
                     .preferredColorScheme(.dark)
                     .tabItem { Image("home") }
                     .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
-                ContentView()
+                FavouritesView()
                     .preferredColorScheme(.dark)
                     .tabItem { Image("heart") }
+                    .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
                 ContentView()
                     .preferredColorScheme(.dark)
                     .tabItem { Image("eye") }

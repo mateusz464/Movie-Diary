@@ -316,8 +316,6 @@ struct PopupSheetView: View {
     
     var body: some View {
         ZStack {
-            Color.clear.edgesIgnoringSafeArea(.all)
-            
             VStack(spacing: 20) {
                 Button(action: {
                     handleWatched()
@@ -362,10 +360,12 @@ struct PopupSheetView: View {
             }
 
             .padding()
-            .background(Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0))
             .cornerRadius(20)
             .frame(width: 450)
             .shadow(radius: 10)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0))
+        .edgesIgnoringSafeArea(.all)
     }
 }
