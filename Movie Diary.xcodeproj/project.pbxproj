@@ -10,12 +10,12 @@
 		6181A52E2B8D2D2E005710FB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6181A52D2B8D2D2E005710FB /* Config.swift */; };
 		6187D9212BB08AF80069CC8A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6187D9202BB08AF70069CC8A /* ContentView.swift */; };
 		61C219102BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61C2190E2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld */; };
-		61C219242BBD85CF0059B1F2 /* WatchedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C219232BBD85CF0059B1F2 /* WatchedProvider.swift */; };
 		61CA59A52B6B061E00C80D44 /* MovieCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA59A42B6B061E00C80D44 /* MovieCard.swift */; };
 		61CA59A82B6B0D8400C80D44 /* MovieDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA59A72B6B0D8400C80D44 /* MovieDiaryViewModel.swift */; };
 		61CC29DD2B35CEBE0086CDFE /* Movie_DiaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC29DC2B35CEBE0086CDFE /* Movie_DiaryApp.swift */; };
 		61CC29E12B35CEC00086CDFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61CC29E02B35CEC00086CDFE /* Assets.xcassets */; };
 		61CC29E42B35CEC00086CDFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61CC29E32B35CEC00086CDFE /* Preview Assets.xcassets */; };
+		61D203B52BBD94F400563CF4 /* MovieDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D203B42BBD94F400563CF4 /* MovieDataProvider.swift */; };
 		61D8F7FE2BBB13DB008582B2 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8F7FD2BBB13DB008582B2 /* MovieDetails.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,13 +23,13 @@
 		6181A52D2B8D2D2E005710FB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		6187D9202BB08AF70069CC8A /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		61C2190F2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieDiaryData.xcdatamodel; sourceTree = "<group>"; };
-		61C219232BBD85CF0059B1F2 /* WatchedProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchedProvider.swift; path = ../../../../../.Trash/WatchedProvider.swift; sourceTree = "<group>"; };
 		61CA59A42B6B061E00C80D44 /* MovieCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCard.swift; sourceTree = "<group>"; };
 		61CA59A72B6B0D8400C80D44 /* MovieDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDiaryViewModel.swift; sourceTree = "<group>"; };
 		61CC29D92B35CEBE0086CDFE /* Movie Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61CC29DC2B35CEBE0086CDFE /* Movie_DiaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie_DiaryApp.swift; sourceTree = "<group>"; };
 		61CC29E02B35CEC00086CDFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61CC29E32B35CEC00086CDFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		61D203B42BBD94F400563CF4 /* MovieDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDataProvider.swift; sourceTree = "<group>"; };
 		61D8F7FD2BBB13DB008582B2 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,7 +63,7 @@
 		61C219222BBD85C60059B1F2 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				61C219232BBD85CF0059B1F2 /* WatchedProvider.swift */,
+				61D203B42BBD94F400563CF4 /* MovieDataProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 				61CA59A52B6B061E00C80D44 /* MovieCard.swift in Sources */,
 				61CA59A82B6B0D8400C80D44 /* MovieDiaryViewModel.swift in Sources */,
 				6187D9212BB08AF80069CC8A /* ContentView.swift in Sources */,
-				61C219242BBD85CF0059B1F2 /* WatchedProvider.swift in Sources */,
+				61D203B52BBD94F400563CF4 /* MovieDataProvider.swift in Sources */,
 				6181A52E2B8D2D2E005710FB /* Config.swift in Sources */,
 				61CC29DD2B35CEBE0086CDFE /* Movie_DiaryApp.swift in Sources */,
 				61C219102BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld in Sources */,
