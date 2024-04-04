@@ -16,30 +16,31 @@ struct MovieDiary: App {
                     ContentView()
                         .preferredColorScheme(.dark)
                 }
-                .tabItem { Image("home") }
+                .tabItem { Image(systemName: "house.fill") }
                 .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
                 
                 NavigationView {
                     FavouritesView()
                         .preferredColorScheme(.dark)
                 }
-                .tabItem { Image("heart") }
+                .tabItem { Image(systemName: "heart.fill") }
                 .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
                 
                 NavigationView {
                     WatchedView()
                         .preferredColorScheme(.dark)
                 }
-                .tabItem { Image("eye") }
+                .tabItem { Image(systemName: "eye.fill") }
                 .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
                 
                 NavigationView {
                     WantToWatchView()
                         .preferredColorScheme(.dark)
                 }
-                .tabItem { Image("film") }
+                .tabItem { Image(systemName: "film.fill") }
                 .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
             }
+            .accentColor(.white)
         }
     }
 }
