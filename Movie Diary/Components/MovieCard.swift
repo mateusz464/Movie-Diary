@@ -35,14 +35,14 @@ struct MovieResults: Decodable {
 struct Movie: Identifiable, Decodable {
     let adult: Bool
     let id: Int
-    let poster_path: String
+    let poster_path: String?
     let title: String
     let vote_average: Float
-    let backdrop_path: String
+    let backdrop_path: String?
     
-    var posterUrl: URL {
-        let base = URL(string: "https://image.tmdb.org/t/p/w500")
-        return base!.appending(path: poster_path)
+    var posterUrl: URL? {
+        guard let path = poster_path else { return nil }
+        return URL(string: "https://image.tmdb.org/t/p/w500\(path)")
     }
 }
 
