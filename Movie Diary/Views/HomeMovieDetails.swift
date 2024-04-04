@@ -100,6 +100,7 @@ struct HomeMovieDetails: View {
                     .padding()
                 
                 Text(movieInfo?.overview ?? "N/A")
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
                 Picker("Select", selection: $showingCastOrCrew) {

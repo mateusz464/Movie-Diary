@@ -45,9 +45,12 @@ struct WatchedView: View {
             ScrollView {
                 VStack(spacing: 0) {
                     ForEach(sortedFilms(), id: \.self) { film in
-                        ListMovieCard(movie: film)
-                            .frame(maxWidth: .infinity)
-                            .background(Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0))
+                        NavigationLink(destination: MovieDetails(movieId: Int(film.id))) {
+                            ListMovieCard(movie: film)
+                                .frame(maxWidth: .infinity)
+                                .background(Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0))
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }

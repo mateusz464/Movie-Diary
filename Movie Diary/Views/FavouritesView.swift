@@ -54,9 +54,6 @@ struct FavouritesView: View {
                     }
                 }
             }
-            .padding(.horizontal)
-            .clipped()
-
         }
         .background(Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0))
     }
