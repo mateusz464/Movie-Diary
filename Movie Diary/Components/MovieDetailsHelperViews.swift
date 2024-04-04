@@ -1,0 +1,90 @@
+//
+//  MovieDetailsHelperViews.swift
+//  Movie Diary
+//
+//  Created by Mateusz Golebiowski on 04/04/2024.
+//
+
+import SwiftUI
+
+struct PopupSheetView: View {
+    @Binding var isWatched: Bool
+    @Binding var isFavourite: Bool
+    @Binding var isWantToWatch: Bool
+    var handleWatched: () -> Void
+    var toggleFavourite: () -> Void
+    var handleWantToWatch: () -> Void
+    
+    var body: some View {
+        ZStack {
+            VStack(spacing: 20) {
+                Button(action: {
+                    handleWatched()
+                }) {
+                    HStack {
+                        Image("eye")
+                        Text("Watched")
+                    }
+                }
+                .frame(width: 200, height: 100)
+                .background(isWatched ? Color.blue : Color.gray)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                
+                Button(action: {
+                    toggleFavourite()
+                }) {
+                    HStack {
+                        Image("heart")
+                        Text("Favourite")
+                    }
+                }
+                .frame(width: 200, height: 100)
+                .background(isFavourite ? Color.red : Color.gray)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                .disabled(!isWatched)
+                .opacity(isWatched ? 1 : 0.5)
+                
+                Button(action: { handleWantToWatch() }) {
+                    HStack {
+                        Image("film")
+                        Text("Want to Watch")
+                    }
+                }
+                .frame(width: 200, height: 100)
+                .background(isWantToWatch ? Color.blue : Color.gray)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                .disabled(isWatched)
+                .opacity(!isWatched ? 1 : 0.5)
+            }
+
+            .padding()
+            .cornerRadius(20)
+            .frame(width: 450)
+            .shadow(radius: 10)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0))
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct DottedLine: View {
+    var color: Color = .white
+    var lineWidth: CGFloat = 1
+    
+    var body: some View {
+        GeometryReader { geometry in
+            Path { path in
+                let width = geometry.size.width
+                path.move(to: CGPoint(x: 0, y: 0))
+                path.addLine(to: CGPoint(x: width, y: 0))
+            }
+            .stroke(style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, dash: [5]))
+            .foregroundColor(color)
+        }
+        .frame(height: lineWidth)
+    }
+}

@@ -35,7 +35,7 @@ struct ContentView: View {
                                     ScrollView(.horizontal) {
                                         HStack {
                                             ForEach(viewModel.trending) { trendingMovie in
-                                                NavigationLink(destination: MovieDetails(movieId: trendingMovie.id)) {
+                                                NavigationLink(destination: HomeMovieDetails(movieId: trendingMovie.id)) {
                                                     MovieCard(trendingMovies: trendingMovie)
                                                 }
                                                 .buttonStyle(PlainButtonStyle())
@@ -56,7 +56,7 @@ struct ContentView: View {
                             Spacer(minLength: 20)
                             
                             ForEach(viewModel.searchResults.prefix(10)) { item in
-                                NavigationLink(destination: MovieDetails(movieId: item.id)) {
+                                NavigationLink(destination: HomeMovieDetails(movieId: item.id)) {
                                     HStack {
                                         AsyncImage(url: item.posterUrl) { image in
                                             image

@@ -12,22 +12,33 @@ struct MovieDiary: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                ContentView()
-                    .preferredColorScheme(.dark)
-                    .tabItem { Image("home") }
-                    .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
-                FavouritesView()
-                    .preferredColorScheme(.dark)
-                    .tabItem { Image("heart") }
-                    .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
-                WatchedView()
-                    .preferredColorScheme(.dark)
-                    .tabItem { Image("eye") }
-                    .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
-                WantToWatchView()
-                    .preferredColorScheme(.dark)
-                    .tabItem { Image("film") }
-                    .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
+                NavigationView {
+                    ContentView()
+                        .preferredColorScheme(.dark)
+                }
+                .tabItem { Image("home") }
+                .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
+                
+                NavigationView {
+                    FavouritesView()
+                        .preferredColorScheme(.dark)
+                }
+                .tabItem { Image("heart") }
+                .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
+                
+                NavigationView {
+                    WatchedView()
+                        .preferredColorScheme(.dark)
+                }
+                .tabItem { Image("eye") }
+                .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
+                
+                NavigationView {
+                    WantToWatchView()
+                        .preferredColorScheme(.dark)
+                }
+                .tabItem { Image("film") }
+                .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
             }
         }
     }

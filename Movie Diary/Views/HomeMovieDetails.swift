@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct MovieDetails: View {
+struct HomeMovieDetails: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     let movieId: Int
@@ -45,7 +45,7 @@ struct MovieDetails: View {
                             .background(Color.black.opacity(0.5))
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                     }
-                    .padding(.bottom, -15)
+                    .padding(.bottom, 35)
                     .padding(.trailing)
                 }
                 
@@ -64,7 +64,7 @@ struct MovieDetails: View {
                         .foregroundColor(.white)
                         .padding(.horizontal)
                 }
-                .padding(.top, 30)
+                .padding(.top, -20)
                 
                 HStack {
                     Text(movieCredits?.directorName ?? "Director")
@@ -143,7 +143,6 @@ struct MovieDetails: View {
                     }
                 }
                 .padding(.horizontal)
-
                 
                 Spacer()
 
@@ -324,4 +323,3 @@ struct MovieDetails: View {
         }
     }
 }
-
