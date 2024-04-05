@@ -30,16 +30,24 @@ struct SearchView: View {
                         .padding(.horizontal, 50)
 
 
-                        Button("Top Rated") {
-                            // Handle Top Rated button tap
+                        NavigationLink(destination: SearchListView(apiCallType: .topRated)) {
+                            Text("Top Rated")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                         }
-                        .buttonStyle(SearchViewButtonStyle())
                         .padding(.horizontal, 50)
 
-                        Button("Upcoming") {
-                            // Handle Upcoming button tap
+                        NavigationLink(destination: SearchListView(apiCallType: .upcoming)) {
+                            Text("Upcoming")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                         }
-                        .buttonStyle(SearchViewButtonStyle())
                         .padding(.horizontal, 50)
                         
                         DottedLine()

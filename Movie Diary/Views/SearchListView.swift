@@ -12,9 +12,20 @@ struct SearchListView: View {
     @State private var selectedSort: SortOption = .highestRating
     @State private var movies: [Movie] = []
     
+    var title: String {
+            switch apiCallType {
+            case .popular:
+                return "Popular Movies"
+            case .topRated:
+                return "Top Rated Movies"
+            case .upcoming:
+                return "Upcoming Movies"
+            }
+        }
+    
     var body: some View {
         VStack {
-            Text("Popular Movies")
+            Text(title)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding([.horizontal, .top])
