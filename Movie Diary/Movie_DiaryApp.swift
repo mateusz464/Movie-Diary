@@ -20,6 +20,13 @@ struct MovieDiary: App {
                 .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
                 
                 NavigationView {
+                    SearchView()
+                        .preferredColorScheme(.dark)
+                }
+                .tabItem { Image(systemName: "magnifyingglass")}
+                .environment(\.managedObjectContext, MovieDataProvider.shared.viewContext)
+                
+                NavigationView {
                     FavouritesView()
                         .preferredColorScheme(.dark)
                 }

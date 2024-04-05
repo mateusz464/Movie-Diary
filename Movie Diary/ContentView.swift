@@ -13,96 +13,41 @@ struct ContentView: View {
     @State var searchText = ""
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0)
-                    .edgesIgnoringSafeArea(.all)
-            
-                if (searchText.isEmpty) {
+        ZStack {
+            Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0)
+                .edgesIgnoringSafeArea(.all)
 
-                        VStack {
-                            Text("Trending")
-                                .fontWeight(.heavy)
-                                .font(.title)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.horizontal)
+            VStack {
+                Text("Trending")
+                    .fontWeight(.heavy)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
 
-                            ScrollView {
-                                if viewModel.trending.isEmpty {
-                                    Text("No results")
-                                } else {
-                                    ScrollView(.horizontal) {
-                                        HStack {
-                                            ForEach(viewModel.trending) { trendingMovie in
-                                                NavigationLink(destination: HomeMovieDetails(movieId: trendingMovie.id)) {
-                                                    MovieCard(trendingMovies: trendingMovie)
-                                                }
-                                                .buttonStyle(PlainButtonStyle())
-                                            }
-                                        }
-                                        .padding(.horizontal)
-                                        .clipped()
+                ScrollView {
+                    if viewModel.trending.isEmpty {
+                        Text("No results")
+                    } else {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(viewModel.trending) { trendingMovie in
+                                    NavigationLink(destination: MovieDetails(movieId: trendingMovie.id)) {
+                                        MovieCard(trendingMovies: trendingMovie)
                                     }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
                             }
-                        }
-                        .onAppear {
-                            viewModel.loadTrending()
-                        }
-                } else {
-                    ScrollView {
-                        LazyVStack {
-                            Spacer(minLength: 20)
-                            
-                            ForEach(viewModel.searchResults.prefix(10)) { item in
-                                NavigationLink(destination: HomeMovieDetails(movieId: item.id)) {
-                                    HStack {
-                                        AsyncImage(url: item.posterUrl) { image in
-                                            image
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: 80, height: 120)
-                                        } placeholder: {
-                                            ProgressView()
-                                                .frame(width: 80, height: 120)
-                                        }
-                                        .padding(.horizontal)
-                                        .clipped()
-                                        .cornerRadius(10)
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(item.title)
-                                                .foregroundColor(.white)
-                                                .font(.headline)
-                                            
-                                            HStack {
-                                                Image(systemName: "hand.thumbsup.fill")
-                                                Text(String(format: "%.2f", item.vote_average))
-                                            }
-                                            .foregroundColor(.yellow)
-                                            .fontWeight(.heavy)
-                                        }
-                                        
-                                        Spacer()
-                                    }
-                                }
-                            }
-                            .buttonStyle(PlainButtonStyle())
+                            .padding(.horizontal)
+                            .clipped()
                         }
                     }
-                    .padding(.top, 8)
                 }
             }
-        }
-        .searchable(text: $searchText)
-        .onChange(of: searchText) {
-            if searchText.count > 2 {
-                viewModel.search(query: searchText)
+            .onAppear {
+                viewModel.loadTrending()
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .edgesIgnoringSafeArea(.all)
     }
 }
 
