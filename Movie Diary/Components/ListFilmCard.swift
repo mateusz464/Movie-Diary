@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct ListMovieCard: View {
-    let movie: Movie
+struct ListFilmCard: View {
+    let movie: Film
     
     var body: some View {
         ZStack {
             Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0)
                 .edgesIgnoringSafeArea(.all)
             HStack {
-                AsyncImage(url: movie.posterUrl) { phase in
+                AsyncImage(url: movie.poster_url) { phase in
                     if let image = phase.image {
                         image.resizable()
                     } else if phase.error != nil {
@@ -30,9 +30,18 @@ struct ListMovieCard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Spacer()
                     
-                    Text(movie.title)
-                        .font(.headline)
-                        .lineLimit(1)
+                    HStack {
+                        Text(movie.title ?? "Title")
+                            .font(.headline)
+                            .lineLimit(1)
+                        
+                        Spacer()
+                        
+                        if movie.is_favourite {
+                            Image(systemName: "heart.fill")
+                                .foregroundColor(.red)
+                        }
+                    }
                     
                     Spacer()
                     

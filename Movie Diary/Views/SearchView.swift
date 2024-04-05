@@ -19,36 +19,43 @@ struct SearchView: View {
                 
                 if (searchText.isEmpty) {
                     VStack {
-                        Button("Popular") {
-                                // Handle Popular button tap
-                            }
-                            .buttonStyle(SearchViewButtonStyle())
-
-                            Button("Top Rated") {
-                                // Handle Top Rated button tap
-                            }
-                            .buttonStyle(SearchViewButtonStyle())
-
-                            Button("Upcoming") {
-                                // Handle Upcoming button tap
-                            }
-                            .buttonStyle(SearchViewButtonStyle())
-
-                            Button("Genres") {
-                                // Handle Genres button tap
-                            }
-                            .buttonStyle(SearchViewButtonStyle())
-
-                            Spacer()
+                        NavigationLink(destination: SearchListView(apiCallType: .popular)) {
+                            Text("Popular")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                         }
-                        .padding()
+                        .padding(.horizontal, 50)
+
+
+                        Button("Top Rated") {
+                            // Handle Top Rated button tap
+                        }
+                        .buttonStyle(SearchViewButtonStyle())
+                        .padding(.horizontal, 50)
+
+                        Button("Upcoming") {
+                            // Handle Upcoming button tap
+                        }
+                        .buttonStyle(SearchViewButtonStyle())
+                        .padding(.horizontal, 50)
+                        
+                        DottedLine()
+                            .padding(.horizontal, 50)
+                            .padding(.vertical)
+
+                        Spacer()
+                    }
+                    .padding()
                 } else {
                     ScrollView {
                         LazyVStack {
                             Spacer(minLength: 20)
                             
                             ForEach(viewModel.searchResults.prefix(10)) { item in
-                                NavigationLink(destination: HomeMovieDetails(movieId: item.id)) {
+                                NavigationLink(destination: SearchMovieDetails(movieId: item.id)) {
                                     HStack {
                                         AsyncImage(url: item.posterUrl) { image in
                                             image

@@ -46,7 +46,7 @@ struct FavouritesView: View {
                 VStack(spacing: 0) {
                     ForEach(sortedFilms(), id: \.self) { film in
                         NavigationLink(destination: MovieDetails(movieId: Int(film.id))) {
-                            ListMovieCard(movie: film)
+                            ListFilmCard(movie: film)
                                 .frame(maxWidth: .infinity)
                                 .background(Color(red: 40/255.0, green: 51/255.0, blue: 76/255.0))
                         }

@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct HomeMovieDetails: View {
+struct SearchMovieDetails: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     let movieId: Int
