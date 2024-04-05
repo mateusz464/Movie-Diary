@@ -28,6 +28,7 @@
 		61D9988F2BC06549005B9AF7 /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D9988E2BC06549005B9AF7 /* SearchListView.swift */; };
 		61D998912BC06789005B9AF7 /* ListMovieCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D998902BC06789005B9AF7 /* ListMovieCard.swift */; };
 		61D998932BC06B4D005B9AF7 /* SearchMovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D998922BC06B4D005B9AF7 /* SearchMovieDetails.swift */; };
+		61D998952BC0780D005B9AF7 /* GenreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D998942BC0780D005B9AF7 /* GenreListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		61D9988E2BC06549005B9AF7 /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
 		61D998902BC06789005B9AF7 /* ListMovieCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMovieCard.swift; sourceTree = "<group>"; };
 		61D998922BC06B4D005B9AF7 /* SearchMovieDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchMovieDetails.swift; sourceTree = "<group>"; };
+		61D998942BC0780D005B9AF7 /* GenreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				6103E78F2BBE27A400B22D42 /* MovieDetails.swift */,
 				61937E8A2BC028BB00D86046 /* SearchView.swift */,
 				61D9988E2BC06549005B9AF7 /* SearchListView.swift */,
+				61D998942BC0780D005B9AF7 /* GenreListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				61937E8B2BC028BB00D86046 /* SearchView.swift in Sources */,
 				61C219102BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld in Sources */,
 				61D998912BC06789005B9AF7 /* ListMovieCard.swift in Sources */,
+				61D998952BC0780D005B9AF7 /* GenreListView.swift in Sources */,
 				6103E78E2BBE232300B22D42 /* WantToWatchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

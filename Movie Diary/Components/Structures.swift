@@ -78,3 +78,8 @@ struct MovieListData: Decodable {
     let total_pages: Int
     let total_results: Int
 }
+
+struct Genre: Identifiable {
+    let id: Int
+    let name: String
+}
