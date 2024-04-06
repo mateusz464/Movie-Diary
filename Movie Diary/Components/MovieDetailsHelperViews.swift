@@ -23,7 +23,7 @@ struct PopupSheetView: View {
                 }) {
                     HStack {
                         Image("eye")
-                        Text("watched")
+                        Text("Watched")
                     }
                 }
                 .frame(width: 200, height: 100)

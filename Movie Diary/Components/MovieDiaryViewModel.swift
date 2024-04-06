@@ -11,6 +11,7 @@ import SwiftUI
 @MainActor
 class MovieDiaryViewModel: ObservableObject {
     @Published var trending: [Movie] = []
+    @Published var upcoming: [Movie] = []
     @Published var searchResults: [Movie] = []
     
     func loadTrending() {
@@ -33,6 +34,32 @@ class MovieDiaryViewModel: ObservableObject {
                 let trendingResponse = try JSONDecoder().decode(MovieResults.self, from: data)
                 
                 trending = trendingResponse.results
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func loadUpcoming() {
+        Task {
+            guard let url = URL(string: "\(TMDB_API)/3/movie/upcoming") else {
+                print("Invalid URL")
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.addValue("Bearer \(TMDB_API_KEY!)", forHTTPHeaderField: "Authorization")
+            
+            do {
+                let (data, response) = try await URLSession.shared.data(for: request)
+                
+                if !(200..<300 ~= (response as? HTTPURLResponse)?.statusCode ?? 0) {
+                    print("Error getting data")
+                }
+                
+                let results = try JSONDecoder().decode(MovieResults.self, from: data)
+                
+                upcoming = results.results
             } catch {
                 print(error.localizedDescription)
             }

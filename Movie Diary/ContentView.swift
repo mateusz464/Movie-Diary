@@ -18,6 +18,15 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
+                Text("Movie Diary")
+                    .fontWeight(.heavy)
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.horizontal)
+                
+                Spacer()
+                
                 Text("Trending")
                     .fontWeight(.heavy)
                     .font(.title)
@@ -43,9 +52,40 @@ struct ContentView: View {
                         }
                     }
                 }
+                
+                Spacer()
+                
+                Text("In Cinemas")
+                    .fontWeight(.heavy)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+
+                ScrollView {
+                    if viewModel.upcoming.isEmpty {
+                        Text("No results")
+                    } else {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(viewModel.upcoming) { upcomingMovie in
+                                    NavigationLink(destination: MovieDetails(movieId: upcomingMovie.id)) {
+                                        MovieCard(trendingMovies: upcomingMovie)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .padding(.horizontal)
+                            .clipped()
+                        }
+                    }
+                }
+                
+                Spacer()
             }
             .onAppear {
                 viewModel.loadTrending()
+                viewModel.loadUpcoming()
             }
         }
     }
