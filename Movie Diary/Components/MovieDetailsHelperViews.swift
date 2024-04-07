@@ -11,13 +11,17 @@ struct PopupSheetView: View {
     @Binding var isWatched: Bool
     @Binding var isFavourite: Bool
     @Binding var isWantToWatch: Bool
+    @Binding var userRating: Int
     var handleWatched: () -> Void
     var toggleFavourite: () -> Void
     var handleWantToWatch: () -> Void
+    var handleRating: () -> Void
     
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
+                Spacer()
+                
                 Button(action: {
                     handleWatched()
                 }) {
@@ -58,8 +62,39 @@ struct PopupSheetView: View {
                 .clipShape(Capsule())
                 .disabled(isWatched)
                 .opacity(!isWatched ? 1 : 0.5)
-            }
+                
+                Spacer()
+                
+                Text("Add a rating!")
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                
+                HStack(spacing: 5) {
+                    ForEach(1...10, id: \.self) { number in
+                        Image(systemName: userRating >= number ? "star.fill" : "star")
+                            .foregroundColor(userRating >= number ? .yellow : .gray)
+                            .opacity(isWatched ? 1 : 0.5)
+                            .onTapGesture {
+                                userRating = number
+                                handleRating()
+                            }
+                    }
+                }
+                .frame(maxWidth: 300)
+                .padding(.vertical, 10)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .disabled(!isWatched)
+                
+                Spacer()
 
+            }
             .padding()
             .cornerRadius(20)
             .frame(width: 450)

@@ -19,6 +19,7 @@ struct MovieDetails: View {
     @State private var isWatched: Bool = false
     @State private var isFavourite: Bool = false
     @State private var isWantToWatch: Bool = false
+    @State private var userRating: Int = 0
     
     var body: some View {
         ZStack {
@@ -157,7 +158,7 @@ struct MovieDetails: View {
             updateMovieStatus()
         }
         .sheet(isPresented: $isPopupVisible) {
-            PopupSheetView(isWatched: $isWatched, isFavourite: $isFavourite, isWantToWatch: $isWantToWatch, handleWatched: handleWatched, toggleFavourite: handleFavourite, handleWantToWatch: handleWantToWatch)
+            PopupSheetView(isWatched: $isWatched, isFavourite: $isFavourite, isWantToWatch: $isWantToWatch, userRating: $userRating, handleWatched: handleWatched, toggleFavourite: handleFavourite, handleWantToWatch: handleWantToWatch, handleRating: handleRating)
         }
     }
     
@@ -223,10 +224,12 @@ struct MovieDetails: View {
                 isWatched = movie.watched
                 isFavourite = movie.is_favourite
                 isWantToWatch = !movie.watched && (result.count > 0)
+                userRating = Int(movie.user_rating)
             } else {
                 isWatched = false
                 isFavourite = false
                 isWantToWatch = false
+                userRating = 0
             }
         } catch {
             print("Error fetching movie status: \(error.localizedDescription)")
@@ -255,8 +258,11 @@ struct MovieDetails: View {
         }
     }
     
-    private func addOrUpdateFilm(watched: Bool? = nil, favourite: Bool? = nil) {
-        
+    private func handleRating() {
+        addOrUpdateFilm(userRating: userRating)
+    }
+    
+    private func addOrUpdateFilm(watched: Bool? = nil, favourite: Bool? = nil, userRating: Int? = nil) {
         let request: NSFetchRequest<Film> = Film.fetchRequest()
             request.predicate = NSPredicate(format: "id == %d", movieId)
             
@@ -284,6 +290,10 @@ struct MovieDetails: View {
                 if let favourite = favourite {
                     film.is_favourite = favourite
                     isFavourite = favourite
+                }
+                
+                if let userRating = userRating {
+                    film.user_rating = Int32(userRating)
                 }
                 
                 try viewContext.save()
