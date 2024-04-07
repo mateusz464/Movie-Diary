@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct MovieCard: View {
-    let trendingMovies: Movie
+    let movies: Movie
     
     var body: some View {
         VStack {
-            AsyncImage(url: trendingMovies.posterUrl) { image in
+            AsyncImage(url: movies.posterUrl) { image in
                 image.image?
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 120, height: 200)
+                    .frame(width: 100, height: 160)
             }
             .cornerRadius(10)
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61000F1F2BC35BC6006E8F07 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61000F1E2BC35BC6006E8F07 /* Globals.swift */; };
 		6103E78A2BBE219300B22D42 /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6103E7892BBE219300B22D42 /* SortOption.swift */; };
 		6103E78C2BBE21F800B22D42 /* WatchedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6103E78B2BBE21F800B22D42 /* WatchedView.swift */; };
 		6103E78E2BBE232300B22D42 /* WantToWatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6103E78D2BBE232300B22D42 /* WantToWatchView.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		61000F1E2BC35BC6006E8F07 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		6103E7892BBE219300B22D42 /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOption.swift; sourceTree = "<group>"; };
 		6103E78B2BBE21F800B22D42 /* WatchedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchedView.swift; sourceTree = "<group>"; };
 		6103E78D2BBE232300B22D42 /* WantToWatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantToWatchView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				61C2190E2BBD7A4D0059B1F2 /* MovieDiaryData.xcdatamodeld */,
+				61000F1E2BC35BC6006E8F07 /* Globals.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				61CA59A52B6B061E00C80D44 /* MovieCard.swift in Sources */,
 				6103E7902BBE27A400B22D42 /* MovieDetails.swift in Sources */,
 				61D998932BC06B4D005B9AF7 /* SearchMovieDetails.swift in Sources */,
+				61000F1F2BC35BC6006E8F07 /* Globals.swift in Sources */,
 				6180C6772BBDBB4E006E7BFD /* FavouritesView.swift in Sources */,
 				61CA59A82B6B0D8400C80D44 /* MovieDiaryViewModel.swift in Sources */,
 				61D9988F2BC06549005B9AF7 /* SearchListView.swift in Sources */,
