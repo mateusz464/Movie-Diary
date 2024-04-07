@@ -45,23 +45,59 @@ struct ListFilmCard: View {
                     
                     Spacer()
                     
-                    HStack {
-                        Text(movie.release_date?.prefix(4) ?? "N/A")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        Spacer()
-                        
+                    if (movie.user_rating > 0) {
                         HStack {
-                            Image("star")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
-                            Text(String(format: "%.2f", movie.vote_average))
+                            Text(movie.release_date?.prefix(4) ?? "N/A")
                                 .font(.subheadline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.secondary)
+                            
+                            Spacer()
+                            
+                            HStack {
+                                Image(systemName: "star.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.yellow)
+                                    .frame(height: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
+                                Text(String(movie.user_rating))
+                                    .font(.subheadline)
+                                    .foregroundColor(.yellow)
+                            }
+                            
+                            Spacer()
+                            
+                            HStack {
+                                Image(systemName: "star.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.white)
+                                    .frame(height: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
+                                Text(String(format: "%.2f", movie.vote_average))
+                                    .font(.subheadline)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    } else {
+                        HStack {
+                            Text(movie.release_date?.prefix(4) ?? "N/A")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                            Spacer()
+                            
+                            HStack {
+                                Image(systemName: "star.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.white)
+                                    .frame(height: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
+                                Text(String(format: "%.2f", movie.vote_average))
+                                    .font(.subheadline)
+                                    .foregroundColor(.white)
+                            }
                         }
                     }
+                    
                     
                     Spacer()
                 }
