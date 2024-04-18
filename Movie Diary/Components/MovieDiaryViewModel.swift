@@ -1,10 +1,3 @@
-//
-//  MovieDiaryViewModel.swift
-//  Movie Diary
-//
-//  Created by Mateusz Golebiowski on 31/01/2024.
-//
-
 import Foundation
 import SwiftUI
 

@@ -1,10 +1,3 @@
-//
-//  Config.swift
-//  Movie Diary
-//
-//  Created by Mateusz Golebiowski on 26/02/2024.
-//
-
 import SwiftUI
 import Foundation
 

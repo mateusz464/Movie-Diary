@@ -1,10 +1,3 @@
-//
-//  Structures.swift
-//  Movie Diary
-//
-//  Created by Mateusz Golebiowski on 05/04/2024.
-//
-
 import Foundation
 
 struct MovieResults: Decodable {

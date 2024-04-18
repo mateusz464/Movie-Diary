@@ -1,10 +1,3 @@
-//
-//  GenreListView.swift
-//  Movie Diary
-//
-//  Created by Mateusz Golebiowski on 05/04/2024.
-//
-
 import SwiftUI
 
 struct GenreListView: View {

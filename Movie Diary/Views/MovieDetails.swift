@@ -1,10 +1,3 @@
-//
-//  MovieDetails.swift
-//  Movie Diary
-//
-//  Created by Mateusz Golebiowski on 01/04/2024.
-//
-
 import SwiftUI
 import CoreData
 

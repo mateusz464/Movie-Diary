@@ -1,10 +1,3 @@
-//
-//  FavouritesView.swift
-//  Movie Diary
-//
-//  Created by Mateusz Golebiowski on 03/04/2024.
-//
-
 import SwiftUI
 
 struct FavouritesView: View {

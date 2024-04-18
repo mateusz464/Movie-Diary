@@ -1,10 +1,3 @@
-//
-//  MovieDetailsHelperViews.swift
-//  Movie Diary
-//
-//  Created by Mateusz Golebiowski on 04/04/2024.
-//
-
 import SwiftUI
 
 struct PopupSheetView: View {
